@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
 <head>
   {%- block site_meta %}
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% if page and page.is_homepage %}<meta name="description" content="{{ config.site_description }}">{% endif %}
-  {% if config.site_author %}<meta name="author" content="{{ config.site_author }}">{% endif %}
-  {% if page and page.canonical_url %}<link rel="canonical" href="{{ page.canonical_url }}">{% endif %}
-  {% if config.site_favicon %}<link rel="shortcut icon" href="{{ config.site_favicon|url }}">
-  {% else %}<link rel="shortcut icon" href="{{ 'img/favicon.ico'|url }}">{% endif %}
+  {% if page and page.is_homepage %}
+  <meta name="description" content="{{ config.site_description }}">{% endif %}
+  {% if config.site_author %}
+  <meta name="author" content="{{ config.site_author }}">{% endif %}
+  {% if page and page.canonical_url %}
+  <link rel="canonical" href="{{ page.canonical_url }}">{% endif %}
+  {% if config.site_favicon %}
+  <link rel="shortcut icon" href="{{ config.site_favicon|url }}">
+  {% else %}
+  <link rel="shortcut icon" href="{{ 'img/favicon.ico'|url }}">{% endif %}
   {%- endblock %}
 
   {%- block htmltitle %}
-  <title>{% if page and page.title and not page.is_homepage %}{{ page.title }} - {% endif %}{{ config.site_name }}</title>
+  <title>{% if page and page.title and not page.is_homepage %}{{ page.title }} - {% endif %}{{ config.site_name }}
+  </title>
   {%- endblock %}
 
   {%- block styles %}
@@ -27,11 +36,11 @@
   {% if page %}
   <script>
     // Current page data
-    var mkdocs_page_name = {{ page.title|tojson|safe }};
-    var mkdocs_page_input_path = {{ page.file.src_path|string|tojson|safe }};
-    var mkdocs_page_url = {{ page.abs_url|tojson|safe }};
-    var mkdocs_base_url = {{ config.extra.baseurl|tojson|safe }}
-    var mkdocs_home_headers = {{ config.extra.home_headers|tojson|safe }};
+    var mkdocs_page_name = {{ page.title| tojson | safe }};
+    var mkdocs_page_input_path = {{ page.file.src_path| string | tojson | safe }};
+    var mkdocs_page_url = {{ page.abs_url| tojson | safe }};
+    var mkdocs_base_url = {{ config.extra.baseurl| tojson | safe }}
+    var mkdocs_home_headers = {{ config.extra.home_headers| tojson | safe }};
   </script>
   {% endif %}
   {%- endblock %}
@@ -41,80 +50,25 @@
   <div class="bes-header">
     <a href="{{ nav.homepage.url|url }}" class="bes-header__logo"></a>
     <h1><a href="{{ nav.homepage.url|url }}"><b>BES</b> Playbook</a></h1>
-    <input type="checkbox" id="bes-search-toggle" name="bes-search-toggle" />
-    <label for="bes-search-toggle" class="bes-search-toggle__label">
-      <span class="bes-search-toggle__search"></span>
-      <span class="bes-search-toggle__x"></span>
-    </label>
-    <div class="bes-header-search">
-    {%- block search_button %}
-        {% if 'search' in config['plugins'] %}{% include "searchbox.html" %}{% endif %}
-    {%- endblock %}
-    </div>
-    <ul class="bes-header-nav" aria-label="main navigation" data-baseurl="{{config.extra.baseurl}}">
-        {%- for k in config.extra.playbooks %}
-          <li data-url="{{ k.url }}">
-            <a href="{{config.extra.baseurl}}{{ k.url }}">
-            {{ k.name }}
-            </a>
-          </li>
-        {%- endfor %}
-
-    </ul>
   </div>
-  
-  <div class="bes-body-columns">
-    <input type="checkbox" id="bes-nav-toggle" name="bes-nav-toggle" />
-    <label for="bes-nav-toggle" class="bes-nav-toggle__label">
-      <span class="bes-nav-toggle__hamburger"></span>
-      <span class="bes-nav-toggle__x"></span>
-    </label>
-    <nav class="bes-doc-nav-wrap">
-        <ul class="bes-playbook-mobile-nav">
-            {%- for k in config.extra.playbooks %}
-              <li>
-                <a href="{{config.extra.baseurl}}{{ k.url }}">
-                {{ k.name }}
-                </a>
-              </li>
-            {%- endfor %}
-        </ul>
-    </nav><!-- /bes-doc-nav -->
-    <section class="bes-content-wrap">
-      {# PAGE CONTENT #}
-      <div class="bes-home-header">
-        {{ page.content }}
-      </div>
-      <div class="bes-content">
 
-        <div class="bes-playbook-grid">
-        {%- for k in config.extra.playbooks %}
-          <div class="bes-playbook-grid__item">
-            <h2><img src="{{ k.icon }}" />{{ k.name }}</h2>
-            <p>
-              {{ k.desc }}
-            </p>
-            <a href="{{config.extra.baseurl}}{{ k.url }}">
-              View
-            </a>
-          </div>
-        {%- endfor %}
-        </div>
+  <div class="bes-body-columns">
+
+    <section class="bes-content-wrap">
+      <div class="bes-content">
+        {{ page.content }}
       </div>
 
     </section>
 
   </div><!-- /bes-body-colums -->
-
-  {% include "footer.html" %}
-
   {%- block scripts %}
-    <script>var base_url = '{{ base_url }}';</script>
-    <script src="{{ 'js/theme.js'|url }}" defer></script>
-    <script src="{{ 'js/home.js'|url }}" defer></script>
+  <script>var base_url = '{{ base_url }}';</script>
+  <script src="{{ 'js/home.js'|url }}" defer></script>
   {%- endblock %}
 
 </body>
+
 </html>
 {% if page and page.is_homepage %}
 <!--
